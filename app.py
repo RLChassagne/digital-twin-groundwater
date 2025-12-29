@@ -62,8 +62,6 @@ if st.button('Lancer la Simulation en Temps Réel'):
         current_height = df.loc[i, 'Height']
         
         fig, ax = plt.subplots(figsize=(10, 5))
-        
-        # Fond blanc pour le plot, cadre beige via Streamlit
         ax.set_facecolor('white')
         
         # Données historiques
@@ -71,24 +69,25 @@ if st.button('Lancer la Simulation en Temps Réel'):
         colors = ['darkblue' if h > MINIMUM_THRESHOLD else 'gray' for h in df.loc[mask, 'Height']]
         ax.scatter(df.loc[mask, 'Time'], df.loc[mask, 'Height'], c=colors, s=15)
         
-        # Alerte et messages
+        # --- CORRECTION DE LA LOGIQUE D'ALERTE ---
         if i >= stop_index:
             ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=100)
-            msg = "🚨 ALERTE : Niveau trop bas ! POMPE ARRÊTÉE"
-            st_color = "error"
+            msg = f"🚨 ALERTE (t={current_time:.1f}) : Niveau trop bas ! POMPE ARRÊTÉE"
+            status_spot.error(msg)
         else:
-            msg = "✅ Système : NORMAL"
-            st_color = "info"
-            
-        status_spot.getattr(st_color)(msg)
+            msg = f"✅ Système (t={current_time:.1f}) : NORMAL"
+            status_spot.info(msg)
+        # ------------------------------------------
         
         ax.set_xlim(df['Time'].min(), 130)
         ax.set_ylim(df['Height'].min() - 0.5, df['Height'].max() + 0.5)
         ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
         ax.set_title(f"Monitoring en Direct - Temps: {current_time:.2f}")
+        ax.set_xlabel("Temps")
+        ax.set_ylabel("Hauteur (m)")
         
         plot_spot.pyplot(fig)
-        plt.close(fig)
+        plt.close(fig) # Important pour éviter de saturer la mémoire
         time.sleep(speed)
 
     # --- SCÉNARIOS DE PRÉDICTION ---
@@ -108,7 +107,9 @@ if st.button('Lancer la Simulation en Temps Réel'):
     ax.plot(t_future, h_high, 'g--', label="Recharge Haute")
     ax.plot(t_future, h_neutral, 'b--', label="Stable")
     ax.plot(t_future, h_low, 'orange', linestyle='--', label="Sécheresse")
-    ax.legend()
+    ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
+    ax.legend(loc='upper right')
     ax.set_title("Prédictions du Jumeau Numérique")
+    
     plot_spot.pyplot(fig)
     status_spot.success("Simulation terminée.")
