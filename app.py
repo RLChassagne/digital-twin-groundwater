@@ -139,6 +139,13 @@ if st.button('Start Real-Time Simulation'):
     ax.set_title("Forecasting scenarios")
     ax.set_xlabel("Time (dimensionless)")
     ax.set_ylabel("Height (dimensionless)")
+
+    st.markdown("---")
+st.subheader("📚 References & Resources")
+st.markdown("""
+- **Digital Twins for the subsurface, how far can we go? R Chassagne, F Wellmann
+** [SIAM Conference on Mathematical & Computational Issues in the Geosciences](https://brgm.hal.science/hal-04031559/)
+""")
     
     plot_spot.pyplot(fig)
     status_spot.success("Simulation complete.")
