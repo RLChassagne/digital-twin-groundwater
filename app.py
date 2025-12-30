@@ -51,7 +51,7 @@ except:
     st.stop()
 
 # --- MAIN INTERFACE ---
-st.title("🌊 Synthetic Digital Twin of a Groundwater Monitoring")
+st.title("🌊 Synthetic Digital Twin for Groundwater Extraction and Monitoring")
 plot_spot = st.empty()  # Reserved zone for dynamic chart
 status_spot = st.empty() # Reserved zone for alert messages
 
@@ -82,7 +82,7 @@ if st.button('Start Real-Time Simulation'):
             msg = f"🚨 ALERT (t={current_time:.1f}): Groundwater Level too low! PUMP STOPPED"
             status_spot.error(msg) # Red banner
         else:
-            msg = f"✅ System (t={current_time:.1f}): PUMP ON"
+            msg = f"✅ System (t={current_time:.1f}): Normal condition : PUMP ON"
             status_spot.success(msg) # Green banner
         # ------------------------------------
         
