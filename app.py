@@ -26,7 +26,7 @@ with st.sidebar:
     
     st.title("Parameters & Legend")
     st.markdown("---")
-    st.write("**Critical Threshold:** -1.2m")
+    #st.write("**Critical Threshold:** -1.2m")
     
     # UPDATED LEGEND
     st.success("🟢 **Green:** Safe Level")
@@ -38,7 +38,7 @@ with st.sidebar:
 
 # --- DATA LOADING ---
 FILE_NAME = "groundwater_level_modified.csv"
-#MINIMUM_THRESHOLD = -1.2
+MINIMUM_THRESHOLD = -1.2
 
 @st.cache_data
 def load_data():
