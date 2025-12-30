@@ -28,9 +28,9 @@ with st.sidebar:
     st.write("**Critical Threshold:** -1.2m")
     
     # UPDATED LEGEND
-    st.success("🟢 **Green:** Safe Level (> Threshold)")
-    st.info("⚪ **Gray:** Below Threshold (Recovery)")
-    st.error("🔴 **Red:** Pump Stopped (Shutdown)")
+    st.success("🟢 **Green:** Safe Level -PUMP ON")
+    st.info("⚪ **Gray:** Critical level - PUMP STOPPED")
+    #st.error("🔴 **Red:** Pump Stopped (Shutdown)")
     
     st.markdown("---")
     speed = st.slider("Simulation Speed", 0.01, 0.5, 0.1)
