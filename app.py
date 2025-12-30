@@ -26,11 +26,11 @@ with st.sidebar:
     st.title("Paramètres & Légende")
     st.markdown("---")
     st.write("**Seuil critique :** -1.2m")
-    # MISE À JOUR DE LA LÉGENDE
+    # LÉGENDE NETTOYÉE ET MISE À JOUR
     st.success("🟢 **Vert :** Niveau Sûr (> Seuil)")
     st.info("⚪ **Gris :** Sous le seuil (Récupération)")
     st.error("🔴 **Rouge :** Point d'arrêt (Shutdown)")
-    st.warning("🟠 **Orange :** Scénario Sécheresse")
+    # Case Orange supprimée ici
     st.markdown("---")
     speed = st.slider("Vitesse de simulation", 0.01, 0.5, 0.1)
 
@@ -66,20 +66,23 @@ if st.button('Lancer la Simulation en Temps Réel'):
         fig, ax = plt.subplots(figsize=(10, 5))
         ax.set_facecolor('white')
         
-        # --- LOGIQUE DE COULEUR MODIFIÉE ---
+        # Logique de couleur des points
         mask = df.index <= i
-        # On utilise 'green' si h > seuil, sinon 'gray'
         colors = ['green' if h > MINIMUM_THRESHOLD else 'gray' for h in df.loc[mask, 'Height']]
         ax.scatter(df.loc[mask, 'Time'], df.loc[mask, 'Height'], c=colors, s=15)
         
-        # Logique d'alerte visuelle
-        if i >= stop_index:
-            ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=120, zorder=5)
+        # --- LOGIQUE DU MESSAGE DE STATUT (CORRIGÉE) ---
+        if current_height <= MINIMUM_THRESHOLD:
+            # Si on est pile au moment du shutdown (index précis) ou après en zone critique
+            if i >= stop_index:
+                ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=120, zorder=5)
+            
             msg = f"🚨 ALERTE (t={current_time:.1f}) : Niveau trop bas ! POMPE ARRÊTÉE"
-            status_spot.error(msg)
+            status_spot.error(msg) # Bandeau Rouge
         else:
-            msg = f"✅ Système (t={current_time:.1f}) : NORMAL"
-            status_spot.info(msg)
+            msg = f"✅ Système (t={current_time:.1f}) : Niveau Sûr"
+            status_spot.success(msg) # Bandeau Vert (Success)
+        # -----------------------------------------------
         
         ax.set_xlim(df['Time'].min(), 130)
         ax.set_ylim(df['Height'].min() - 0.5, df['Height'].max() + 0.5)
@@ -103,7 +106,6 @@ if st.button('Lancer la Simulation en Temps Réel'):
     h_high = h_neutral + 0.05 * (t_future - last_t)
     h_low = h_neutral - 0.05 * (t_future - last_t)
     
-    # Graphique final avec couleurs cohérentes
     fig, ax = plt.subplots(figsize=(10, 5))
     final_colors = ['green' if h > MINIMUM_THRESHOLD else 'gray' for h in df['Height']]
     ax.scatter(df['Time'], df['Height'], c=final_colors, s=15)
