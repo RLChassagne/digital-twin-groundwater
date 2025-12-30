@@ -61,7 +61,7 @@ safety threshold, the pump reactivates. Following the historical data sequence,
 the model forecasts three potential future scenarios.* 
 
 **Digital twin workflow:** Data Acquisition → Data Flow → Data Assimilation 
-& Analysis → Decision Making → Real-World Action → What-if Forecasting. 
+& Analysis → Decision Making → Real-World Action → What-if scenario and forecasting. 
 
 **Future enhancements:** will include integrating in-situ real-time data and authentic sensor inputs.
 """)
