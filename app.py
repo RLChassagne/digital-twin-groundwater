@@ -18,13 +18,15 @@ st.markdown("""
 
 # --- SIDEBAR (LATERAL PANEL) ---
 with st.sidebar:
+    st.markdown("***")
     st.write("Developped by ROMAIN CHASSAGNE")
+    st.markdown("***")
     try:
         st.image("DT.png", use_container_width=True)
     except:
         st.warning("Image DT.png not found.")
     
-    st.title("Parameters & Legend")
+    #st.title("Parameters & Legend")
     st.markdown("---")
     #st.write("**Critical Threshold:** -1.2m")
     
