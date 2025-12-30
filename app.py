@@ -6,7 +6,7 @@ import numpy as np
 import time
 
 # --- PAGE CONFIGURATION ---
-st.set_page_config(page_title="Digital Twin Groundwater", layout="wide")
+st.set_page_config(page_title="Synthetic Digital Twin Groundwater", layout="wide")
 
 # CSS style to customize the interface appearance
 st.markdown("""
@@ -50,7 +50,7 @@ except:
     st.stop()
 
 # --- MAIN INTERFACE ---
-st.title("🌊 Digital Twin: Groundwater Monitoring")
+st.title("🌊 Synthetic Digital Twin: Groundwater Monitoring")
 plot_spot = st.empty()  # Reserved zone for dynamic chart
 status_spot = st.empty() # Reserved zone for alert messages
 
