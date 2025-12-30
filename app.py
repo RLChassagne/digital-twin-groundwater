@@ -18,6 +18,7 @@ st.markdown("""
 
 # --- SIDEBAR (LATERAL PANEL) ---
 with st.sidebar:
+    st.write("**Developped by Romain Chassagne")
     try:
         st.image("DT.png", use_container_width=True)
     except:
