@@ -56,15 +56,18 @@ except:
 st.title("💧 Synthetic Digital Twin for Groundwater Extraction and Monitoring")
 
 st.markdown("""
-This synthetic digital twin demonstrates how real-time monitoring can be integrated 
+*This synthetic digital twin demonstrates how real-time monitoring can be integrated 
 into a web application. It mimics the continuous observation of water table levels 
 and groundwater extraction. When the water table reaches a critical low level, 
 the system automatically triggers a pump shutdown; as levels recover above the 
 safety threshold, the pump reactivates. Following the historical data sequence, 
-the model forecasts three potential future scenarios. This project illustrates 
-the core digital twin workflow: Data Acquisition → Data Flow → Data Assimilation 
-& Analysis → Decision Making → Real-World Action → What-if Forecasting. Future 
-enhancements will include integrating in-situ real-time data and authentic sensor inputs.
+the model forecasts three potential future scenarios.* 
+
+** digital twin workflow:** 
+Data Acquisition → Data Flow → Data Assimilation 
+& Analysis → Decision Making → Real-World Action → What-if Forecasting. 
+
+**Future enhancements:** will include integrating in-situ real-time data and authentic sensor inputs.
 """)
 
 plot_spot = st.empty()  # Reserved zone for dynamic chart
