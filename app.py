@@ -51,7 +51,7 @@ except:
     st.stop()
 
 # --- MAIN INTERFACE ---
-st.title("🌊 Synthetic Digital Twin: Groundwater Monitoring")
+st.title("🌊 Synthetic Digital Twin of a Groundwater Monitoring")
 plot_spot = st.empty()  # Reserved zone for dynamic chart
 status_spot = st.empty() # Reserved zone for alert messages
 
