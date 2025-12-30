@@ -38,7 +38,7 @@ with st.sidebar:
 
 # --- DATA LOADING ---
 FILE_NAME = "groundwater_level_modified.csv"
-MINIMUM_THRESHOLD = -1.2
+#MINIMUM_THRESHOLD = -1.2
 
 @st.cache_data
 def load_data():
@@ -118,7 +118,7 @@ if st.button('Start Real-Time Simulation'):
     
     ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
     ax.legend(loc='upper right')
-    ax.set_title("Digital Twin Forecast Predictions")
+    ax.set_title("Forecasting scenarios")
     ax.set_xlabel("Time")
     ax.set_ylabel("Height (m)")
     
