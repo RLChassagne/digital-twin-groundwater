@@ -34,7 +34,7 @@ with st.sidebar:
     #st.error("🔴 **Red:** Pump Stopped (Shutdown)")
     
     st.markdown("---")
-    speed = st.slider("Simulation Speed", 0.01, 0.5, 0.1)
+    speed = st.slider("Simulation Speed", 0.5, 1, 0.1)
 
 # --- DATA LOADING ---
 FILE_NAME = "groundwater_level_modified.csv"
