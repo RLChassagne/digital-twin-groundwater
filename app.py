@@ -63,7 +63,7 @@ the system automatically triggers a pump shutdown; as levels recover above the
 safety threshold, the pump reactivates. Following the historical data sequence, 
 the model forecasts three potential future scenarios.* 
 
-** digital twin workflow:** 
+**Digital twin workflow:** 
 Data Acquisition → Data Flow → Data Assimilation 
 & Analysis → Decision Making → Real-World Action → What-if Forecasting. 
 
