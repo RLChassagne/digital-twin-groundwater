@@ -19,21 +19,18 @@ st.markdown("""
 # --- SIDEBAR (LATERAL PANEL) ---
 with st.sidebar:
     st.markdown("***")
-    st.write("Developped by ROMAIN CHASSAGNE")
+    st.write("Developed by ROMAIN CHASSAGNE")
     st.markdown("***")
     try:
         st.image("DT.png", use_container_width=True)
     except:
         st.warning("Image DT.png not found.")
     
-    #st.title("Parameters & Legend")
     st.markdown("---")
-    #st.write("**Critical Threshold:** -1.2m")
     
     # UPDATED LEGEND
     st.success("🟢 **Green:** Safe Level")
     st.info("⚪ **Gray:** Groundwater Critical level reached")
-    #st.error("🔴 **Red:** Pump Stopped (Shutdown)")
     
     st.markdown("---")
     speed = st.slider("Simulation Speed", 0.001, 0.4, 0.05)
@@ -61,10 +58,7 @@ into a web application. It mimics the continuous observation of water table leve
 and groundwater extraction. When the water table reaches a critical low level, 
 the system automatically triggers a pump shutdown; as levels recover above the 
 safety threshold, the pump reactivates. Following the historical data sequence, 
-the model forecasts three potential future scenarios.* 
-
-**Digital twin workflow:** 
-Data Acquisition → Data Flow → Data Assimilation 
+the model forecasts three potential future scenarios.* **Digital twin workflow:** Data Acquisition → Data Flow → Data Assimilation 
 & Analysis → Decision Making → Real-World Action → What-if Forecasting. 
 
 **Future enhancements:** will include integrating in-situ real-time data and authentic sensor inputs.
@@ -93,16 +87,14 @@ if st.button('Start Real-Time Simulation'):
         
         # --- STATUS MESSAGE LOGIC ---
         if current_height <= MINIMUM_THRESHOLD:
-            # Marking the shutdown point
             if i >= stop_index:
                 ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=120, zorder=5)
             
             msg = f"🚨 ALERT (t={current_time:.1f}): Groundwater Level too low! PUMP STOPPED"
-            status_spot.error(msg) # Red banner
+            status_spot.error(msg)
         else:
             msg = f"✅ System (t={current_time:.1f}): Normal condition : PUMP ON"
-            status_spot.success(msg) # Green banner
-        # ------------------------------------
+            status_spot.success(msg)
         
         ax.set_xlim(df['Time'].min(), 130)
         ax.set_ylim(df['Height'].min() - 0.5, df['Height'].max() + 0.5)
@@ -139,13 +131,13 @@ if st.button('Start Real-Time Simulation'):
     ax.set_title("Forecasting scenarios")
     ax.set_xlabel("Time (dimensionless)")
     ax.set_ylabel("Height (dimensionless)")
+    
+    plot_spot.pyplot(fig) # Correctly indented inside the button block
+    status_spot.success("Simulation complete.")
 
-    st.markdown("---")
+# --- REFERENCES SECTION (Aligned to the left, outside the button block) ---
+st.markdown("---")
 st.subheader("📚 References & Resources")
 st.markdown("""
-- **Digital Twins for the subsurface, how far can we go? R Chassagne, F Wellmann
-** [SIAM Conference on Mathematical & Computational Issues in the Geosciences](https://brgm.hal.science/hal-04031559/)
+- **Digital Twins for the subsurface, how far can we go? R Chassagne, F Wellmann** [SIAM Conference on Mathematical & Computational Issues in the Geosciences](https://brgm.hal.science/hal-04031559/)
 """)
-    
-    plot_spot.pyplot(fig)
-    status_spot.success("Simulation complete.")
