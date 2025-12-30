@@ -139,7 +139,7 @@ if st.button('Start Real-Time Simulation'):
 st.markdown("---")
 st.subheader("📚 References & Resources")
 st.markdown("""
-- **Practical Data Assimilation for the Subsurface. R. Chassagne** [Earth Sciences. Université de Lorraine (Nancy), 2025](https://brgm.hal.science/tel-05147912v1)
+- **Practical Data Assimilation for the Subsurface. R. Chassagne** [Earth Sciences. Université de Lorraine (Nancy) 2025](https://brgm.hal.science/tel-05147912v1)
 """)
 st.markdown("""
 - **Digital Twins for the subsurface, how far can we go? R. Chassagne, F. Wellmann** [SIAM Conference on Mathematical & Computational Issues in the Geosciences](https://brgm.hal.science/hal-04031559/)
