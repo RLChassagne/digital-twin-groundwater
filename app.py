@@ -58,7 +58,9 @@ into a web application. It mimics the continuous observation of water table leve
 and groundwater extraction. When the water table reaches a critical low level, 
 the system automatically triggers a pump shutdown; as levels recover above the 
 safety threshold, the pump reactivates. Following the historical data sequence, 
-the model forecasts three potential future scenarios.* **Digital twin workflow:** Data Acquisition → Data Flow → Data Assimilation 
+the model forecasts three potential future scenarios.* 
+
+**Digital twin workflow:** Data Acquisition → Data Flow → Data Assimilation 
 & Analysis → Decision Making → Real-World Action → What-if Forecasting. 
 
 **Future enhancements:** will include integrating in-situ real-time data and authentic sensor inputs.
