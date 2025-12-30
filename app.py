@@ -26,8 +26,10 @@ with st.sidebar:
     st.title("Paramètres & Légende")
     st.markdown("---")
     st.write("**Seuil critique :** -1.2m")
-    st.info("🔵 **Bleu :** Niveau Normal")
-    st.error("🔴 **Rouge :** Pompe Arrêtée")
+    # MISE À JOUR DE LA LÉGENDE
+    st.success("🟢 **Vert :** Niveau Sûr (> Seuil)")
+    st.info("⚪ **Gris :** Sous le seuil (Récupération)")
+    st.error("🔴 **Rouge :** Point d'arrêt (Shutdown)")
     st.warning("🟠 **Orange :** Scénario Sécheresse")
     st.markdown("---")
     speed = st.slider("Vitesse de simulation", 0.01, 0.5, 0.1)
@@ -48,8 +50,8 @@ except:
 
 # --- INTERFACE PRINCIPALE ---
 st.title("🌊 Digital Twin : Surveillance de Nappe Phréatique")
-plot_spot = st.empty()  # Zone réservée pour le graphique dynamique
-status_spot = st.empty() # Zone réservée pour les messages d'alerte
+plot_spot = st.empty()  
+status_spot = st.empty() 
 
 if st.button('Lancer la Simulation en Temps Réel'):
     
@@ -64,20 +66,20 @@ if st.button('Lancer la Simulation en Temps Réel'):
         fig, ax = plt.subplots(figsize=(10, 5))
         ax.set_facecolor('white')
         
-        # Données historiques
+        # --- LOGIQUE DE COULEUR MODIFIÉE ---
         mask = df.index <= i
-        colors = ['darkblue' if h > MINIMUM_THRESHOLD else 'gray' for h in df.loc[mask, 'Height']]
+        # On utilise 'green' si h > seuil, sinon 'gray'
+        colors = ['green' if h > MINIMUM_THRESHOLD else 'gray' for h in df.loc[mask, 'Height']]
         ax.scatter(df.loc[mask, 'Time'], df.loc[mask, 'Height'], c=colors, s=15)
         
-        # --- CORRECTION DE LA LOGIQUE D'ALERTE ---
+        # Logique d'alerte visuelle
         if i >= stop_index:
-            ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=100)
+            ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=120, zorder=5)
             msg = f"🚨 ALERTE (t={current_time:.1f}) : Niveau trop bas ! POMPE ARRÊTÉE"
             status_spot.error(msg)
         else:
             msg = f"✅ Système (t={current_time:.1f}) : NORMAL"
             status_spot.info(msg)
-        # ------------------------------------------
         
         ax.set_xlim(df['Time'].min(), 130)
         ax.set_ylim(df['Height'].min() - 0.5, df['Height'].max() + 0.5)
@@ -87,7 +89,7 @@ if st.button('Lancer la Simulation en Temps Réel'):
         ax.set_ylabel("Hauteur (m)")
         
         plot_spot.pyplot(fig)
-        plt.close(fig) # Important pour éviter de saturer la mémoire
+        plt.close(fig) 
         time.sleep(speed)
 
     # --- SCÉNARIOS DE PRÉDICTION ---
@@ -101,12 +103,15 @@ if st.button('Lancer la Simulation en Temps Réel'):
     h_high = h_neutral + 0.05 * (t_future - last_t)
     h_low = h_neutral - 0.05 * (t_future - last_t)
     
-    # Mise à jour finale du graphique avec les prédictions
+    # Graphique final avec couleurs cohérentes
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.scatter(df['Time'], df['Height'], c=['darkblue' if h > MINIMUM_THRESHOLD else 'gray' for h in df['Height']], s=15)
-    ax.plot(t_future, h_high, 'g--', label="Recharge Haute")
-    ax.plot(t_future, h_neutral, 'b--', label="Stable")
-    ax.plot(t_future, h_low, 'orange', linestyle='--', label="Sécheresse")
+    final_colors = ['green' if h > MINIMUM_THRESHOLD else 'gray' for h in df['Height']]
+    ax.scatter(df['Time'], df['Height'], c=final_colors, s=15)
+    
+    ax.plot(t_future, h_high, 'g--', label="Recharge Haute (Prédiction)")
+    ax.plot(t_future, h_neutral, 'b--', label="Stable (Prédiction)")
+    ax.plot(t_future, h_low, 'orange', linestyle='--', label="Sécheresse (Prédiction)")
+    
     ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
     ax.legend(loc='upper right')
     ax.set_title("Prédictions du Jumeau Numérique")
