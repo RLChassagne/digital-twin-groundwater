@@ -117,7 +117,7 @@ if st.button('Start Real-Time Simulation'):
     ax.plot(t_future, h_low, 'orange', linestyle='--', label="Drought")
     
     ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
-    ax.legend(loc='upper right')
+    ax.legend(loc='upper left')
     ax.set_title("Forecasting scenarios")
     ax.set_xlabel("Time")
     ax.set_ylabel("Height (m)")
