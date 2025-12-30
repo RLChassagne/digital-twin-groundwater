@@ -119,8 +119,8 @@ if st.button('Start Real-Time Simulation'):
     ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
     ax.legend(loc='upper left')
     ax.set_title("Forecasting scenarios")
-    ax.set_xlabel("Time")
-    ax.set_ylabel("Height (m)")
+    ax.set_xlabel("Time (dimensionless)")
+    ax.set_ylabel("Height (dimensionless)")
     
     plot_spot.pyplot(fig)
     status_spot.success("Simulation complete.")
