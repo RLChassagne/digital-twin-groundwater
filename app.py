@@ -18,7 +18,7 @@ st.markdown("""
 
 # --- SIDEBAR (LATERAL PANEL) ---
 with st.sidebar:
-    st.write("**Developped by Romain Chassagne")
+    st.write("Developped by ROMAIN CHASSAGNE")
     try:
         st.image("DT.png", use_container_width=True)
     except:
@@ -29,8 +29,8 @@ with st.sidebar:
     st.write("**Critical Threshold:** -1.2m")
     
     # UPDATED LEGEND
-    st.success("🟢 **Green:** Safe Level -PUMP ON")
-    st.info("⚪ **Gray:** Critical level - PUMP STOPPED")
+    st.success("🟢 **Green:** Safe Level")
+    st.info("⚪ **Gray:** Groundwater Critical level reached")
     #st.error("🔴 **Red:** Pump Stopped (Shutdown)")
     
     st.markdown("---")
@@ -79,10 +79,10 @@ if st.button('Start Real-Time Simulation'):
             if i >= stop_index:
                 ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=120, zorder=5)
             
-            msg = f"🚨 ALERT (t={current_time:.1f}): Level too low! PUMP STOPPED"
+            msg = f"🚨 ALERT (t={current_time:.1f}): Groundwater Level too low! PUMP STOPPED"
             status_spot.error(msg) # Red banner
         else:
-            msg = f"✅ System (t={current_time:.1f}): Safe Level"
+            msg = f"✅ System (t={current_time:.1f}): PUMP ON"
             status_spot.success(msg) # Green banner
         # ------------------------------------
         
