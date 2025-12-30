@@ -90,8 +90,8 @@ if st.button('Start Real-Time Simulation'):
         ax.set_ylim(df['Height'].min() - 0.5, df['Height'].max() + 0.5)
         ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
         ax.set_title(f"Live Monitoring - Time: {current_time:.2f}")
-        ax.set_xlabel("Time")
-        ax.set_ylabel("Height (m)")
+        ax.set_xlabel("Time (dimensionless)")
+        ax.set_ylabel("Height (dimensionless)")
         
         plot_spot.pyplot(fig)
         plt.close(fig) 
