@@ -26,11 +26,12 @@ with st.sidebar:
     st.title("Paramètres & Légende")
     st.markdown("---")
     st.write("**Seuil critique :** -1.2m")
-    # LÉGENDE NETTOYÉE ET MISE À JOUR
+    
+    # LÉGENDE CORRIGÉE : L'orange a été supprimé
     st.success("🟢 **Vert :** Niveau Sûr (> Seuil)")
     st.info("⚪ **Gris :** Sous le seuil (Récupération)")
-    st.error("🔴 **Rouge :** Point d'arrêt (Shutdown)")
-    # Case Orange supprimée ici
+    st.error("🔴 **Rouge :** Pompe Arrêtée (Shutdown)")
+    
     st.markdown("---")
     speed = st.slider("Vitesse de simulation", 0.01, 0.5, 0.1)
 
@@ -71,9 +72,9 @@ if st.button('Lancer la Simulation en Temps Réel'):
         colors = ['green' if h > MINIMUM_THRESHOLD else 'gray' for h in df.loc[mask, 'Height']]
         ax.scatter(df.loc[mask, 'Time'], df.loc[mask, 'Height'], c=colors, s=15)
         
-        # --- LOGIQUE DU MESSAGE DE STATUT (CORRIGÉE) ---
+        # --- LOGIQUE DU MESSAGE DE STATUT ---
         if current_height <= MINIMUM_THRESHOLD:
-            # Si on est pile au moment du shutdown (index précis) ou après en zone critique
+            # Marquage du point de shutdown
             if i >= stop_index:
                 ax.scatter(df.loc[stop_index, 'Time'], df.loc[stop_index, 'Height'], color='red', marker='X', s=120, zorder=5)
             
@@ -81,8 +82,8 @@ if st.button('Lancer la Simulation en Temps Réel'):
             status_spot.error(msg) # Bandeau Rouge
         else:
             msg = f"✅ Système (t={current_time:.1f}) : Niveau Sûr"
-            status_spot.success(msg) # Bandeau Vert (Success)
-        # -----------------------------------------------
+            status_spot.success(msg) # Bandeau Vert (Succès)
+        # ------------------------------------
         
         ax.set_xlim(df['Time'].min(), 130)
         ax.set_ylim(df['Height'].min() - 0.5, df['Height'].max() + 0.5)
@@ -110,9 +111,9 @@ if st.button('Lancer la Simulation en Temps Réel'):
     final_colors = ['green' if h > MINIMUM_THRESHOLD else 'gray' for h in df['Height']]
     ax.scatter(df['Time'], df['Height'], c=final_colors, s=15)
     
-    ax.plot(t_future, h_high, 'g--', label="Recharge Haute (Prédiction)")
-    ax.plot(t_future, h_neutral, 'b--', label="Stable (Prédiction)")
-    ax.plot(t_future, h_low, 'orange', linestyle='--', label="Sécheresse (Prédiction)")
+    ax.plot(t_future, h_high, 'g--', label="Recharge Haute")
+    ax.plot(t_future, h_neutral, 'b--', label="Stable")
+    ax.plot(t_future, h_low, 'orange', linestyle='--', label="Sécheresse")
     
     ax.axhline(MINIMUM_THRESHOLD, color='red', linestyle='--', alpha=0.3)
     ax.legend(loc='upper right')
