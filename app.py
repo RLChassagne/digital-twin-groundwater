@@ -53,7 +53,7 @@ except:
 st.title("💧 Synthetic Digital Twin for Groundwater Extraction and Monitoring")
 
 st.markdown("""
-*This synthetic digital twin demonstrates how real-time monitoring can be integrated 
+*This synthetic digital twin shows how real-time monitoring can be integrated 
 into a web application. It mimics the continuous observation of water table levels 
 and groundwater extraction. When the water table reaches a critical low level, 
 the system automatically triggers a pump shutdown; as levels recover above the 
