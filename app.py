@@ -19,7 +19,7 @@ st.markdown("""
 # --- SIDEBAR (LATERAL PANEL) ---
 with st.sidebar:
     st.markdown("***")
-    st.write("**Developed by** ROMAIN CHASSAGNE")
+    st.write("**Developed by** ROMAIN CHASSAGNE / https://rlchassagne.github.io/")
     st.markdown("***")
     try:
         st.image("DT.png", use_container_width=True)
